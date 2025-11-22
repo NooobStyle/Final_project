@@ -10,7 +10,7 @@ import static io.cucumber.junit.platform.engine.Constants.GLUE_PROPERTY_NAME;
 @IncludeEngines("cucumber")
 @SelectClasspathResource("features")
 @ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm")
-@ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "Steps")
+@ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "steps")
 public class RunCucumberTest {
 
 }

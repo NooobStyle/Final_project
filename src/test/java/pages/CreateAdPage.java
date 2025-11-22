@@ -1,4 +1,4 @@
-package PageObject;
+package pages;
 
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.support.FindBy;
@@ -6,27 +6,28 @@ import org.openqa.selenium.support.How;
 
 import java.time.Duration;
 
-import static com.codeborne.selenide.Condition.enabled;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.page;
 
 public class CreateAdPage {
 
-    @FindBy(how = How.XPATH,using = "//*[@id=\"root\"]/div/div[2]/div/form/div[2]/div[1]/div/div/input")
+    @FindBy(how = How.XPATH,using = "//input[@name='name']")
     private SelenideElement adNameInput;
 
-    @FindBy(how = How.XPATH,using = "//*[@id=\"root\"]/div/div[2]/div/form/div[4]/div/textarea")
+    @FindBy(how = How.XPATH,using = "//textarea[@name='description']")
     private SelenideElement adDescriptionInput;
 
-    @FindBy(how = How.XPATH,using = "//*[@id=\"root\"]/div/div[2]/div/form/div[5]/div/div/input")
+    @FindBy(how = How.XPATH,using = "//input[@name='price']")
     private SelenideElement adPriceInput;
 
-    @FindBy(how = How.XPATH,using = "//*[@id=\"root\"]/div/div[2]/div/form/button")
+    @FindBy(how = How.XPATH,using = "//button[contains(text(),'Опубликовать')]")
     private SelenideElement publishButton;
+
+    @FindBy(how = How.XPATH,using = "//button[contains(text(),'Сохранить изменения')]")
+    private SelenideElement editButton;
 
     public CreateAdPage waitForLoad() {
         adNameInput.shouldBe(visible, Duration.ofSeconds(1));
-        publishButton.shouldBe(visible, Duration.ofSeconds(1)).shouldBe(enabled);
         return this;
     }
 
@@ -47,6 +48,16 @@ public class CreateAdPage {
         setAdDescription(adDescription);
         setAdPrice(adPrice);
         publishButton.click();
+        HomePage homePage = page(HomePage.class);
+        homePage.waitForLoad();
+        return homePage;
+    }
+
+    public HomePage editAd(String adName, String adDescription, String adPrice) {
+        setAdName(adName);
+        setAdDescription(adDescription);
+        setAdPrice(adPrice);
+        editButton.click();
         HomePage homePage = page(HomePage.class);
         homePage.waitForLoad();
         return homePage;

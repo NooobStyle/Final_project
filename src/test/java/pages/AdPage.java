@@ -1,4 +1,4 @@
-package PageObject;
+package pages;
 
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.support.FindBy;
@@ -12,9 +12,9 @@ import static com.codeborne.selenide.Selenide.page;
 
 public class AdPage {
 
-    @FindBy(how = How.XPATH,using = "//*[@id=\"root\"]/div/div[2]/div[2]/div[2]/div[2]/div/button[2]")
+    @FindBy(how = How.XPATH,using = "//button[contains(text(),'Удалить')]")
     private SelenideElement deleteAdButton;
-    @FindBy(how = How.XPATH,using = "//*[@id=\"root\"]/div/div[2]/div[2]/div[2]/div[2]/div/button[1]")
+    @FindBy(how = How.XPATH,using = "//button[contains(text(),'Редактировать объявление')]")
     private SelenideElement editAdButton;
 
     public AdPage waitForLoad() {

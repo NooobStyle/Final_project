@@ -1,10 +1,10 @@
 Feature: Authorization
   Scenario: Successful authorization
     Given opened login page
-    When input login data "dmitriev_4999@gmail.com" and "2294"
+    When input login data
     Then Login successful, avaliable "Выйти" button
 
   Scenario: Authorization with incorrect data
     Given opened login page
-    When input login data "dmitriev_14999@gmail.com" and "2294"
+    When input wrong login data
     Then login error "Логин или пароль неверны" message shown

@@ -1,22 +1,26 @@
-package PageObject;
+package pages;
 
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
+import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.page;
 
 public class RegistrationWindow {
-    @FindBy(how = How.XPATH,using = "//*[@id=\"root\"]/div/div[2]/div[5]/form/div[3]/button[1]")
+    @FindBy(how = How.XPATH,using = "//button[contains(text(),'Создать аккаунт')]")
     private SelenideElement createUserButton;
-    @FindBy(how = How.XPATH,using = "//*[@id=\"root\"]/div/div[2]/div[5]/form/div[3]/button[2]")
+    @FindBy(how = How.XPATH,using = "//button[contains(text(),'Уже есть аккаунт')]")
     private SelenideElement alreadyHaveLoginButton;
-    @FindBy(how = How.XPATH,using = "//*[@id=\"root\"]/div/div[2]/div[5]/form/div[2]/div[1]/div/div/input")
+    @FindBy(how = How.XPATH,using = "//input[@name='email']")
     private SelenideElement emailInput;
-    @FindBy(how = How.XPATH,using = "//*[@id=\"root\"]/div/div[2]/div[5]/form/div[2]/div[2]/div/div/input")
+    @FindBy(how = How.XPATH,using = "//input[@name='password']")
     private SelenideElement passwordInput;
-    @FindBy(how = How.XPATH,using = "//*[@id=\"root\"]/div/div[2]/div[5]/form/div[2]/div[3]/div/div/input")
+    @FindBy(how = How.XPATH,using = "//input[@name='submitPassword']")
     private SelenideElement confirmPasswordInput;
+    @FindBy(how = How.XPATH,using = "//span[@class='input_span__yWPqB']")
+    private SelenideElement errorMessage;
 
     public void setEmail(String email) {
         emailInput.setValue(email);
@@ -46,5 +50,9 @@ public class RegistrationWindow {
         HomePage homePage = page(HomePage.class);
         homePage.waitForLoad();
         return homePage;
+    }
+
+    public void checkErrorMessage(String expectedResult) {
+        errorMessage.shouldBe(visible).shouldHave(text(expectedResult));
     }
 }

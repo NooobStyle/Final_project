@@ -1,4 +1,4 @@
-package PageObject;
+package pages;
 
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.support.FindBy;
@@ -7,13 +7,13 @@ import org.openqa.selenium.support.How;
 import static com.codeborne.selenide.Selenide.page;
 
 public class LoginWindow {
-    @FindBy(how = How.XPATH,using = "//*[@id=\"root\"]/div/div[2]/div[5]/form/div[3]/button[1]")
+    @FindBy(how = How.XPATH,using = "//button[contains(text(),'Войти')]")
     private SelenideElement loginButton;
-    @FindBy(how = How.XPATH,using = "//*[@id=\"root\"]/div/div[2]/div[5]/form/div[3]/button[2]")
+    @FindBy(how = How.XPATH,using = "//button[contains(text(),'Нет аккаунта')]")
     private SelenideElement haventLoginButton;
-    @FindBy(how = How.XPATH,using = "//*[@id=\"root\"]/div/div[2]/div[5]/form/div[2]/div[1]/div/div/input")
+    @FindBy(how = How.XPATH,using = "//input[@name='email']")
     private SelenideElement emailInput;
-    @FindBy(how = How.XPATH,using = "//*[@id=\"root\"]/div/div[2]/div[5]/form/div[2]/div[2]/div/div/input")
+    @FindBy(how = How.XPATH,using = "//input[@name='password']")
     private SelenideElement passwordInput;
 
     public void setEmail(String email) {
