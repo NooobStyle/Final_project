@@ -6,5 +6,5 @@ Feature: Registration
 
   Scenario: Re-registration with already used data
     Given opened registration page
-    When input already exist email "dmitriev4999@gmail.com" and password "2294"
+    When input already exist email and password
     Then registration error "Ошибка" message shown

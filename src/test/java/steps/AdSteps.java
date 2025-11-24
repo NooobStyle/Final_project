@@ -1,20 +1,14 @@
 package steps;
 
-import com.codeborne.selenide.WebDriverRunner;
 import config.ConfigUrl;
-import config.DataGenerator;
 import io.cucumber.java.After;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import pages.AdPage;
 import pages.CreateAdPage;
 import pages.HomePage;
 import pages.LoginWindow;
-import utils.CreateUser;
-import utils.CreateUserData;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -24,9 +18,7 @@ public class AdSteps {
     private LoginWindow loginWindow;
     private CreateAdPage createAdPage;
     private AdPage adPage;
-    private String email;
-    private String password;
-    private DataGenerator dataGenerator = new DataGenerator();
+    private User user = new User();
 
     @After
     public void closeBrowser() {
@@ -37,30 +29,15 @@ public class AdSteps {
     public void openLoginPage() {
         homePage = open(ConfigUrl.URL,
                 HomePage.class);
-        email = dataGenerator.generateEmail();
-        password = dataGenerator.generatePassword();
-        WebDriverRunner.getWebDriver().manage().window().maximize();
-        CreateUserData createUserData = new CreateUserData(email, password, password);
-        CreateUser createUser = new CreateUser();
-        createUser.createUser(createUserData).then().statusCode(201);
+        user.userRegistrationApi();
         loginWindow = homePage.clickLoginAndRegistrationButton();
-        homePage = loginWindow.login(email, password);
+        homePage = loginWindow.login(user.getEmail(), user.getPassword());
         createAdPage = homePage.clickCreationAdButton();
     }
 
     @Given("User is authorized with password, the page with ads is open, ad created")
     public void createAndOpenAd() {
-        homePage = open(ConfigUrl.URL,
-                HomePage.class);
-        WebDriverRunner.getWebDriver().manage().window().maximize();
-        email = dataGenerator.generateEmail();
-        password = dataGenerator.generatePassword();
-        CreateUserData createUserData = new CreateUserData(email, password, password);
-        CreateUser createUser = new CreateUser();
-        createUser.createUser(createUserData).then().statusCode(201);
-        loginWindow = homePage.clickLoginAndRegistrationButton();
-        homePage = loginWindow.login(email, password);
-        createAdPage = homePage.clickCreationAdButton();
+        openLoginPage();
         homePage = createAdPage.createAd("Тестовое объявление 59", "Продаю авто 59", "9999");
         homePage.search("Тестовое объявление 59");
         homePage.verifyFirstAdTitle("Тестовое объявление 59");

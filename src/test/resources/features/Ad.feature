@@ -11,5 +11,5 @@ Feature: Working with Ads
 
   Scenario: Ad edit
     Given User is authorized with password, the page with ads is open, ad created
-    When Edit ad with new data: "Тестовое объявление 89", "Продам автомобиль 89", "10000"
-    Then Ad "Тестовое объявление 89" can be found in search
+    When Edit ad with new data: "Тестовое объявление 99", "Продам автомобиль 99", "10000"
+    Then Ad "Тестовое объявление 99" can be found in search

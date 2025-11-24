@@ -10,7 +10,6 @@ import io.cucumber.java.After;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-
 import static com.codeborne.selenide.Selenide.*;
 
 
@@ -22,6 +21,8 @@ public class RegistrationSteps {
     private DataGenerator dataGenerator = new DataGenerator();
     private String generatedEmail;
     private String generatedPassword;
+    private User user = new User();
+
 
     @After
     public void closeBrowser() {
@@ -37,6 +38,7 @@ public class RegistrationSteps {
         registrationWindow = loginWindow.clickHaventLoginButton();
     }
 
+
     @When("input email and password")
     public void registration() {
         generatedEmail = dataGenerator.generateEmail();
@@ -44,9 +46,10 @@ public class RegistrationSteps {
         homePage = registrationWindow.register(generatedEmail, generatedPassword);
     }
 
-    @When("input already exist email {string} and password {string}")
-    public void registrationWithSameData(String email, String password) {
-        homePage = registrationWindow.register(email, password);
+    @When("input already exist email and password")
+    public void registrationWithSameData() {
+        user.userRegistrationApi();
+        homePage = registrationWindow.register(user.getEmail(), user.getPassword());
     }
 
     @Then("open home page, avaliable {string} button")

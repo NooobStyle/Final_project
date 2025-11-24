@@ -1,4 +1,4 @@
-package utils;
+package api.user;
 
 public class CreateUserData {
 
