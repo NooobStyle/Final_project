@@ -26,18 +26,21 @@ public class AdSteps {
     }
 
     @Given("The user is authorized with password, the page with ads is open")
-    public void openLoginPage() {
+    public void openAdPage() {
         homePage = open(ConfigUrl.URL,
                 HomePage.class);
         user.userRegistrationApi();
-        loginWindow = homePage.clickLoginAndRegistrationButton();
-        homePage = loginWindow.login(user.getEmail(), user.getPassword());
+        homePage = user.userLoginUi(homePage, user.getEmail(), user.getPassword());
         createAdPage = homePage.clickCreationAdButton();
     }
 
     @Given("User is authorized with password, the page with ads is open, ad created")
     public void createAndOpenAd() {
-        openLoginPage();
+        homePage = open(ConfigUrl.URL,
+                HomePage.class);
+        user.userRegistrationApi();
+        homePage = user.userLoginUi(homePage, user.getEmail(), user.getPassword());
+        createAdPage = homePage.clickCreationAdButton();
         homePage = createAdPage.createAd("Тестовое объявление 59", "Продаю авто 59", "9999");
         homePage.search("Тестовое объявление 59");
         homePage.verifyFirstAdTitle("Тестовое объявление 59");
